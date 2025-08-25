@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>te amo jhasmin 💖</title>
+  <meta name="description" content="Una página especial para decir: te amo jhasmin." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💖</text></svg>">
+  <style>
+    :root{
+      --bg1:#0f1020; /* deep indigo */
+      --bg2:#1a0f2e; /* plum */
+      --pink:#ff6ec7;
+      --rose:#ff4d88;
+      --light:#ffe9f7;
+      --glow:#ffb3d9;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,Helvetica,Arial,sans-serif}
+    body{
+      --grad-angle: 0deg;
+      background: radial-gradient(1200px 800px at 70% 20%, rgba(255,110,199,.25), transparent 60%),
+                  radial-gradient(900px 700px at 20% 80%, rgba(255,77,136,.18), transparent 60%),
+                  linear-gradient(var(--grad-angle), var(--bg1), var(--bg2));
+      color:white;
+      overflow:hidden;
+    }
+    .wrap{
+      height:100%;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      position:relative;
+      padding:24px;
+      isolation:isolate; /* keep heart z-index under text glow */
+    }
+    h1{
+      font-weight:900;
+      font-size: clamp(36px, 9vw, 120px);
+      line-height:1;
+      margin:0 0 10px;
+      letter-spacing: .03em;
+      text-transform: lowercase;
+      color: white;
+      text-shadow:
+        0 0 10px rgba(255,110,199,.65),
+        0 0 30px rgba(255,77,136,.35),
+        0 0 60px rgba(255,77,136,.25);
+      animation:pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform:scale(1) }
+      50%{ transform:scale(1.03) }
+    }
+    .sub{
+      font-size: clamp(14px, 3.5vw, 20px);
+      opacity:.88;
+      max-width: 700px;
+      margin: 0 auto 18px;
+    }
+    .btns{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    button{
+      border:0; cursor:pointer; padding:12px 18px; border-radius:999px; font-weight:700;
+      background: rgba(255,255,255,.1); color:white; backdrop-filter: blur(6px);
+      box-shadow: 0 10px 25px rgba(255,77,136,.2), inset 0 0 0 1px rgba(255,255,255,.2);
+      transition: transform .15s ease, background .3s ease;
+    }
+    button:hover{ transform: translateY(-1px); background: rgba(255, 255, 255, .18); }/* floating hearts container */
+.hearts{ position:absolute; inset:0; overflow:hidden; z-index:-1; }
+.heart{
+  position:absolute; width:24px; height:24px; pointer-events:none;
+  transform:translate(-50%, -50%) rotate(0deg) scale(1);
+  filter: drop-shadow(0 4px 10px rgba(255,77,136,.45));
+  opacity:0;
+  animation: floatUp var(--dur) linear forwards;
+}
+.heart svg{ width:100%; height:100%; }
+@keyframes floatUp{
+  0%{ transform: translate(var(--x), var(--startY)) scale(var(--s)) rotate(0deg); opacity:0 }
+  10%{ opacity:1 }
+  90%{ opacity:1 }
+  100%{ transform: translate(var(--xEnd), -10%) scale(calc(var(--s)*1.15)) rotate(var(--rot)); opacity:0 }
+}
+
+/* subtle footer */
+footer{
+  position: fixed; inset:auto 0 10px 0; text-align:center; font-size:12px; opacity:.7;
+}
+a{ color: var(--glow); text-decoration: none; }
+a:hover{ text-decoration: underline; }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hearts" id="hearts"></div><main>
+  <h1>te amo jhasmin</h1>
+  <p class="sub">Cada latido, cada sonrisa y cada día tienen el mismo mensaje: <strong>te amo</strong>. Esta paginita es solo para recordártelo. 💗</p>
+  <div class="btns">
+    <button id="btnBurst" aria-label="Lluvia de corazones">Lluvia de corazones</button>
+    <button id="btnGlow" aria-label="Brillo extra">Brillo extra</button>
+  </div>
+</main>
+
+  </div>  <footer>
+    Hecha con 💖 para Jhasmin — <a id="saveLink" href="#">guardar como app</a>
+  </footer>  <!-- heart template -->  <template id="heartTpl">
+    <div class="heart">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
+        <path fill="url(#g)" d="M12.001 4.529c2.349-2.532 6.154-2.222 8.203.315 2.049 2.536 1.37 6.081-1.462 8.583-2.347 2.074-5.667 4.036-6.741 4.646-.185.104-.277.157-.414.157-.137 0-.23-.053-.413-.157-1.075-.61-4.395-2.572-6.742-4.646-2.832-2.502-3.511-6.047-1.462-8.583 2.049-2.537 5.854-2.847 8.031-.315l.238.266.238-.266z"/>
+        <defs>
+          <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#ff6ec7"/>
+            <stop offset="100%" stop-color="#ff4d88"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </template>  <script>
+    const heartsEl = document.getElementById('hearts');
+    const tpl = document.getElementById('heartTpl');
+    const btnBurst = document.getElementById('btnBurst');
+    const btnGlow = document.getElementById('btnGlow');
+    const saveLink = document.getElementById('saveLink');
+
+    // animated gradient angle
+    let angle = 0;
+    setInterval(()=>{
+      angle = (angle + 0.2) % 360;
+      document.body.style.setProperty('--grad-angle', angle + 'deg');
+    }, 30);
+
+    function rand(min, max){ return Math.random() * (max - min) + min }
+
+    function spawnHeart({x=null, burst=false}={}){
+      const node = tpl.content.firstElementChild.cloneNode(true);
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      const startX = x ?? rand(0, vw);
+      const startY = vh + rand(10, 80);
+      const endX = startX + rand(-vw*0.1, vw*0.1);
+      const scale = rand(0.6, 1.6);
+      const rot = rand(-90, 90) + 'deg';
+      const dur = rand(7, 14) + 's';
+
+      node.style.setProperty('--x', startX + 'px');
+      node.style.setProperty('--startY', startY + 'px');
+      node.style.setProperty('--xEnd', endX + 'px');
+      node.style.setProperty('--s', scale);
+      node.style.setProperty('--rot', rot);
+      node.style.setProperty('--dur', dur);
+
+      if(burst){ node.style.animationDuration = rand(3,6) + 's'; }
+
+      heartsEl.appendChild(node);
+      node.addEventListener('animationend', ()=> node.remove());
+    }
+
+    // gentle stream of hearts
+    let stream = setInterval(()=> spawnHeart(), 700);
+
+    // burst on click
+    document.addEventListener('click', (e)=>{
+      const count = 20;
+      for(let i=0;i<count;i++){
+        setTimeout(()=> spawnHeart({x:e.clientX + (Math.random()-0.5)*160, burst:true}), i*30);
+      }
+    });
+    btnBurst.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const centerX = window.innerWidth/2;
+      for(let i=0;i<30;i++) setTimeout(()=> spawnHeart({x:centerX + (Math.random()-0.5)*240, burst:true}), i*25);
+    });
+
+    // Toggle extra glow
+    let glowOn = false;
+    btnGlow.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      glowOn = !glowOn;
+      document.documentElement.style.setProperty('--glow', glowOn ? '#ffffff' : '#ffb3d9');
+      document.body.style.transition = 'filter .4s ease';
+      document.body.style.filter = glowOn ? 'drop-shadow(0 0 30px rgba(255,255,255,.25)) saturate(1.15)' : 'none';
+      btnGlow.textContent = glowOn ? 'Quitar brillo' : 'Brillo extra';
+    });
+
+    // "install" as app by prompting the user to add to home screen or bookmark
+    saveLink.addEventListener('click', (e)=>{
+      e.preventDefault();
+      alert('Sugerencia: en tu navegador, abre el menú ⋮ y elige "Agregar a pantalla de inicio" o guarda esta página como marcador.');
+    });
+
+    // Respect reduced motion
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function handleReduce(){
+      if(media.matches){
+        clearInterval(stream);
+        document.querySelectorAll('.heart').forEach(h=>h.remove());
+      }else{
+        stream = setInterval(()=> spawnHeart(), 900);
+      }
+    }
+    media.addEventListener('change', handleReduce);
+    handleReduce();
+  </script></body>
+</html>
